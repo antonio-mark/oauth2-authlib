@@ -1,0 +1,142 @@
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static',filename='style.css') }}"
+/>
+
+{% if user %}
+<div class="user-info">
+  <div class="window-buttons">
+    <span class="red"></span>
+    <span class="yellow"></span>
+    <span class="green"></span>
+  </div>
+  <p>Here is the userinfo data:</p>
+  <pre id="pre" class="prettyprint"></pre>
+  {% if provider == 'twitter' %}
+  <a href="/tweets">List Latest Tweets</a>
+  {% endif %} {% if provider == 'discord' %}
+  <a href="/disc">List Connections</a>
+  {% endif %}
+  <a href="/logout">Logout</a>
+</div>
+
+{% else %}
+<div class="login-container">
+  <h1>Login</h1>
+  <p>Choose a method to log in with OAuth.</p>
+
+  <div class="social-login">
+    <a href="/login/oauth_server">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="51"
+        height="50"
+        viewBox="0 0 51 50"
+      >
+        <rect width="50" height="50" fill="#000" rx="25"></rect>
+        <text
+          x="50%"
+          y="50%"
+          dominant-baseline="middle"
+          text-anchor="middle"
+          fill="#fff"
+          font-family="'Old English Text MT', serif"
+          font-size="20"
+        >
+          hs
+        </text>
+      </svg>
+    </a>
+    <a href="/login/google">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 48 48"
+        fill="none"
+      >
+        <rect
+          width="47.5"
+          height="47.5"
+          x="0.25"
+          y="0.25"
+          fill="#fff"
+          rx="23.75"
+        ></rect>
+        <rect
+          width="47.5"
+          height="47.5"
+          x="0.25"
+          y="0.25"
+          stroke="#C3CBD1"
+          stroke-width="0.5"
+          rx="23.75"
+        ></rect>
+        <path
+          fill="#EA4335"
+          d="M24 16.845c2.191 0 3.669.946 4.511 1.736l3.293-3.214c-2.022-1.88-4.654-3.034-7.804-3.034-4.563 0-8.503 2.619-10.422 6.43l3.772 2.93c.947-2.813 3.565-4.849 6.65-4.849Z"
+        ></path>
+        <path
+          fill="#4285F4"
+          d="M35.2 24.26c0-.96-.078-1.66-.246-2.386H24v4.33h6.43c-.13 1.076-.83 2.696-2.386 3.785l3.682 2.852c2.204-2.035 3.474-5.03 3.474-8.582Z"
+        ></path>
+        <path
+          fill="#FBBC05"
+          d="M17.363 26.308A7.182 7.182 0 0 1 16.974 24c0-.804.143-1.581.376-2.307l-3.772-2.93A11.677 11.677 0 0 0 12.333 24c0 1.88.454 3.656 1.245 5.237l3.785-2.93Z"
+        ></path>
+        <path
+          fill="#34A853"
+          d="M24 35.667c3.15 0 5.795-1.037 7.726-2.826l-3.681-2.852c-.986.687-2.308 1.167-4.045 1.167-3.085 0-5.704-2.035-6.637-4.848l-3.772 2.93c1.918 3.81 5.846 6.429 10.41 6.429Z"
+        ></path>
+      </svg>
+    </a>
+    <a href="/login/twitter">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="48"
+        height="48"
+        viewBox="0 0 48 48"
+      >
+        <rect width="48" height="48" fill="#fff" rx="24"></rect>
+        <path
+          d="M14.095479,10.316482L22.286354,1h-1.940718l-7.115352,8.087682L7.551414,1H1l8.589488,12.231093L1,23h1.940717  
+           l7.509372-8.542861L16.448587,23H23L14.095479,10.316482z M11.436522,13.338465l-0.871624-1.218704l-6.924311-9.68815h2.981339  
+           l5.58978,7.82155l0.867949,1.218704l7.26506,10.166271h-2.981339L11.436522,13.338465z"
+          transform="translate(12, 12)"
+          fill="#000"
+        />
+      </svg>
+    </a>
+    <a href="/login/discord">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 48 48"
+        fill="none"
+      >
+        <rect width="48" height="48" fill="#5865F2" rx="24"></rect>
+        <path
+          fill="#fff"
+          d="M33.177 15.62A20.36 20.36 0 0 0 28.02 14c-.223.402-.482.942-.661 1.372a18.938 18.938 0 0 0-5.716 0c-.18-.43-.445-.97-.669-1.372a20.29 20.29 0 0 0-5.161 1.625c-3.264 4.932-4.15 9.742-3.707 14.484 2.165 1.617 4.263 2.599 6.326 3.241.51-.7.963-1.446 1.355-2.23a13.33 13.33 0 0 1-2.134-1.04c.18-.132.354-.27.523-.413 4.114 1.924 8.583 1.924 12.648 0 .17.143.346.281.523.414a13.29 13.29 0 0 1-2.138 1.04c.392.783.844 1.53 1.355 2.231a20.578 20.578 0 0 0 6.33-3.243c.519-5.497-.887-10.263-3.717-14.488Zm-12.83 11.573c-1.235 0-2.248-1.153-2.248-2.557s.992-2.558 2.248-2.558c1.257 0 2.27 1.152 2.248 2.558.002 1.404-.991 2.557-2.248 2.557Zm8.306 0c-1.235 0-2.248-1.153-2.248-2.557s.991-2.558 2.248-2.558c1.256 0 2.269 1.152 2.247 2.558 0 1.404-.99 2.557-2.247 2.557Z"
+        ></path>
+      </svg>
+    </a>
+  </div>
+</div>
+{% endif %}
+
+<script>
+  const user = {{ user|tojson }};
+
+  const formattedJSON = JSON.stringify(user, null, 4);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector(".prettyprint").textContent = formattedJSON;
+    PR.prettyPrint();
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>

@@ -1,0 +1,28 @@
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static',filename='style.css') }}"
+/>
+
+<div class="user-info">
+  <div class="window-buttons">
+    <span class="red"></span>
+    <span class="yellow"></span>
+    <span class="green"></span>
+  </div>
+  <p>Here is the user latest tweets:</p>
+  <pre id="pre" class="prettyprint"></pre>
+  <a href="/">Return</a>
+</div>
+
+<script>
+  const tweets = {{ tweets|tojson }};
+
+  const formattedJSON = JSON.stringify(tweets, null, 4);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector(".prettyprint").textContent = formattedJSON;
+    PR.prettyPrint();
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
