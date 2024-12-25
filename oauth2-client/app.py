@@ -2,10 +2,14 @@ from flask import Flask, url_for, session, render_template, redirect, abort
 from authlib.integrations.flask_client import OAuth, OAuthError
 from authlib.oauth2.rfc7636 import create_s256_code_challenge
 from authlib.common.security import generate_token
+from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = '!secret'
 app.config.from_object('config')
+app.config['SESSION_REFRESH_EACH_REQUEST'] = False
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=2)
 
 oauth = OAuth(app)
 
@@ -97,19 +101,18 @@ def auth(name: str):
 
     session.pop('code_verifier', None)
 
-    session['token'] = token
-
     user_info = client.userinfo(token=token)
     
+    session['token'] = token
     session['user'] = user_info
-    session['provider'] = name 
+    session['provider'] = name
+    session.permanent = True
+    
     return redirect('/')
 
 @app.route('/logout')
 def logout():
-    session.pop('token', None)
-    session.pop('user', None)
-    session.pop('provider', None)
+    session.clear()
     return redirect('/')
 
 # twitter
@@ -122,7 +125,7 @@ def list_tweets():
 
 # discord
 @app.route('/disc')
-def Teste():
+def list_connections():
     resp = oauth.discord.get("users/@me/connections") 
 
     discord = resp.json()
